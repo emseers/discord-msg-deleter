@@ -13,15 +13,15 @@ import (
 type MessageCollector struct{}
 
 
-func (h MessageCollector) Name() string {
+func (h *MessageCollector) Name() string {
 	return "Message Collector"
 }
 
-func (h MessageCollector) Description() string {
+func (h *MessageCollector) Description() string {
 	return "Collects messages starting from a given message ID to a given limit to local storage for further processing"
 }
 
-func (h MessageCollector) Execute(s *discordgo.Session, m *discordgo.MessageCreate, cmdSlices []string) (bool, error) {
+func (h *MessageCollector) Handle(s *discordgo.Session, m *discordgo.MessageCreate, cmdSlices []string) (bool, error) {
 	if cmdSlices[0] != "collect" {
 		return false, nil
 	}

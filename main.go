@@ -1,7 +1,6 @@
 package main
 
 import (
-	"discord-msg-deleter/commands"
 	"flag"
 	"fmt"
 	"github.com/bwmarrin/discordgo"
@@ -31,18 +30,18 @@ func main() {
 	fmt.Println("Bot is online")
 
 	// Add all commands for bot
-	var commandHandlers = []commands.ICommandHandler{}
+	var commandHandlers = []Handler{}
 
 	// Register for events
 	discord.AddHandler(func(s *discordgo.Session, m *discordgo.MessageCreate) { OnMessageCreate(s, m, commandHandlers) })
 }
 
-func OnMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate, commands []commands.ICommandHandler) {
+func OnMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate, commands []Handler) {
 	var cmdSlices = strings.Split(strings.ToLower(m.Content), "")
 
 	// Iterate through command handlers till it finds one that is able to handle command
 	for _, command := range commands {
-		processedCommand, err := command.Execute(s, m, cmdSlices)
+		processedCommand, err := command.Handle(s, m, cmdSlices)
 
 		if err != nil {
 			print(err)
