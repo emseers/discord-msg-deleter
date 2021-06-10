@@ -2,6 +2,7 @@ package commands
 
 import (
 	"errors"
+	"fmt"
 	"github.com/bwmarrin/discordgo"
 	"strconv"
 )
@@ -33,7 +34,7 @@ func (h *MessageCollector) Handle(s *discordgo.Session, m *discordgo.MessageCrea
 	numMessagesToCollect, err := strconv.ParseUint(cmdSlices[2], 10, 32)
 
 	if err != nil {
-		return true, errors.New("invalid value for number of messages to collect")
+		return true, fmt.Errorf("unable to parse value for number of messages to collect: %v", err)
 	}
 
 	print(numMessagesToCollect)
