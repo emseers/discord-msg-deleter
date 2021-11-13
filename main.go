@@ -37,15 +37,15 @@ func main() {
 }
 
 func OnMessageCreate(s *discordgo.Session, m *discordgo.MessageCreate, commands []Handler) {
-	var cmdSlices = strings.Split(strings.ToLower(m.Content), " ")
+	var args = strings.Split(strings.ToLower(m.Content), " ")
 
-	if len(cmdSlices) == 0 {
+	if len(args) == 0 {
 		return
 	}
 
 	// Iterate through command handlers till it finds one that is able to handle command
 	for _, command := range commands {
-		processedCommand, err := command.Handle(s, m, cmdSlices)
+		processedCommand, err := command.Handle(s, m, args)
 
 		if err != nil {
 			print(err)
