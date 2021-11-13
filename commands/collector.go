@@ -23,7 +23,7 @@ func (h *MessageCollector) Description() string {
 }
 
 func (h *MessageCollector) Handle(s *discordgo.Session, m *discordgo.MessageCreate, cmdSlices []string) (bool, error) {
-	if cmdSlices[0] != "collect" {
+	if cmdSlices[0] != "/collect" {
 		return false, nil
 	}
 
