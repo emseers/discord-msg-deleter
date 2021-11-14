@@ -34,9 +34,8 @@ func (h *MessageCollector) Handle(s *discordgo.Session, m *discordgo.MessageCrea
 		return
 	}
 
-	numMessagesToCollect, err := strconv.ParseUint(args[2], 10, 32)
-
-	if err != nil {
+	var numMessagesToCollect uint64
+	if numMessagesToCollect, err = strconv.ParseUint(args[2], 10, 32); err != nil {
 		err = fmt.Errorf("unable to parse value for number of messages to collect: %v", err)
 		return
 	}
